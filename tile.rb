@@ -16,13 +16,13 @@ class Tile
 
     def flagged=(new_flag)
         if !revealed
-            flagged = new_flag
+            @flagged = new_flag
         end
     end
 
     def revealed=(new_boolean)
         if !flagged
-            revealed = new_boolean
+            @revealed = new_boolean
         end
     end
 
