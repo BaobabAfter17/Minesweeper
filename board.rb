@@ -4,8 +4,9 @@ class Board
     # default board size 9 * 9, with 10 random mines
 
     def initialize
-        @board=Array.new(9) {Array.new(9)}
-        
+        @board=Array.new(9) {Array.new(9, false)}
+        self.populate_mines
+        self.fill_up_board_with_tiles
     end
 
     def fill_up_board_with_tiles
@@ -26,9 +27,10 @@ class Board
 
     def populate_mines
         until self.count_mines >=10
-            row = random(9)
-            col = random(9)
-            board[[row, col]] = true
+            row = rand(9)
+            col = rand(9)
+            position = [row, col]
+            self[position] = true
         end
 
     end
