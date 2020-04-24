@@ -20,7 +20,21 @@ class Tile
     end
 
     def neighbors
-
+        neighbors = []
+        current_row, current_col = position
+        (current_row - 1..current_row + 1).each do |row|
+            (current_col - 1..current_col + 1).each do |col|
+                if self.valid_position?(row, col) && [row, col] != position
+                    neighbors << board[row][col]
+                end
+            end
+        end
+        neighbors
+    end
+    
+    def valid_position?(row, col)
+        side = board.length
+        row.between?(0, side) && col.between?(0, side)
     end
 
     def neighbor_bomb_count
