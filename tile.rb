@@ -60,8 +60,9 @@ class Tile
         # if explored / revealed
             # show _ if not neighbor to any bomb
             # show num if neighor to any bomb(s)
+        return 'F' if flagged
         return '*' if !revealed && !flagged
-        return 'F' if !revealed && flagged
+
 
         neighbor_bomb_count = self.neighbor_bomb_count
         return '_' if revealed && neighbor_bomb_count == 0
