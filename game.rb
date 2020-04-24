@@ -12,6 +12,12 @@ class Game
     end
 
     def play_round
+        command = get_command
+        position = get_position
+        if command == 'r'
+            board.reveal(position)
+        else
+            board.
 
     end
 

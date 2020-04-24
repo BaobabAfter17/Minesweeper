@@ -81,6 +81,11 @@ class Board
 
     end
 
+    def change_flag_at(position)
+        current_tile = self[position]
+        current_tile.flagged = !current_tile.flagged
+    end
+
     def show_bombs
         # cheat method for testing only
         board.each do |row|
@@ -118,7 +123,10 @@ if $PROGRAM_NAME == __FILE__
     b = Board.new
     # b.show_bombs
     # b.reveal([0,0])
-    # b.render
+    b.render
+    b.change_flag_at([0,0])
+    b.change_flag_at([8,8])
+    b.render
 
 
     # p t.neighbor_bomb_count
