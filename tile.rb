@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 
 class Tile
+    attr_reader :bombed
 
     def initialize(board, position, bombed)
         @board = board # 9 * 9 full of tiles
@@ -38,11 +39,12 @@ class Tile
     end
 
     def neighbor_bomb_count
-
+        neighbors = self.neighbors
+        neighbors.count {|neighbor| neighbor.bombed}
     end
 
     private
     attr_accessor :revealed
-    attr_reader :board, :position, :bombed, :flagged
+    attr_reader :board, :position, :flagged
 
 end

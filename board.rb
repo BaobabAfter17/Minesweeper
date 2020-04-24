@@ -1,6 +1,7 @@
 require_relative 'tile.rb'
 
 class Board
+    attr_reader :board
     # default board size 9 * 9, with 10 random mines
 
     def initialize
@@ -51,6 +52,18 @@ class Board
 
     private
 
-    attr_accessor :board
+    attr_writer :board
 
+end
+
+if $PROGRAM_NAME == __FILE__
+    b = Board.new
+    b.board.each do |row|
+        row.each do |ele|
+            print "#{ele.bombed} "
+        end
+        puts
+    end
+    t = b[[2,3]]
+    p t.neighbor_bomb_count
 end
