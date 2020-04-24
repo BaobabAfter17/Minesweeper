@@ -1,4 +1,5 @@
 require_relative 'tile.rb'
+require 'colorize'
 
 class Board
     attr_reader :board, :game_over
@@ -52,9 +53,9 @@ class Board
     end
 
     def render
-        puts "  0 1 2 3 4 5 6 7 8"
+        puts "  0 1 2 3 4 5 6 7 8".blue
         board.each.with_index do |row, row_idx|
-            print row_idx.to_s + " "
+            print row_idx.to_s.blue + " "
             row.each do |tile|
                 print tile.to_mark + " "
             end

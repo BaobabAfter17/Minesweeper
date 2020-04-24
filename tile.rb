@@ -1,5 +1,6 @@
 require_relative 'board.rb'
 require 'byebug'
+require 'colorize'
 
 class Tile
     attr_reader :board, :position, :bombed, :revealed, :flagged
@@ -60,13 +61,13 @@ class Tile
         # if explored / revealed
             # show _ if not neighbor to any bomb
             # show num if neighor to any bomb(s)
-        return 'F' if flagged
+        return 'F'.red if flagged
         return '*' if !revealed && !flagged
 
 
         neighbor_bomb_count = self.neighbor_bomb_count
-        return '_' if revealed && neighbor_bomb_count == 0
-        return neighbor_bomb_count.to_s if revealed && neighbor_bomb_count != 0
+        return '_'.green if revealed && neighbor_bomb_count == 0
+        return neighbor_bomb_count.to_s.green if revealed && neighbor_bomb_count != 0
     end
 
 end
