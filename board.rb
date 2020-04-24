@@ -65,6 +65,8 @@ class Board
     def reveal(position)
         current_tile = self[position]
 
+        return false if current_tile.flagged
+        
         if current_tile.bombed
             self.game_over = true
         elsif current_tile.neighbor_bomb_count != 0
