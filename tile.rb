@@ -16,7 +16,7 @@ class Tile
     end
 
     def reveal
-
+        self.revealed = true
     end
 
     def neighbors
@@ -28,6 +28,7 @@ class Tile
     end
 
     private
-    attr_reader :board, :position, :bombed, :flagged, :revealed
+    attr_accessor :revealed
+    attr_reader :board, :position, :bombed, :flagged
 
 end
