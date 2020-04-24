@@ -1,4 +1,5 @@
 require_relative "board.rb"
+require "yaml"
 
 class Game
     attr_reader :board
@@ -17,9 +18,19 @@ class Game
     def play_round
         board.render
         command = get_command
-        position = get_position
-        board.reveal(position) if command == 'r'
-        board.change_flag_at(position) if command == 'f'
+        case command
+        when 'r'
+            position = get_position
+            board.reveal(position)
+        when 'f'
+            position = get_position
+            board.change_flag_at(position)
+        when 's'
+            self.save_game
+        when 'l'
+            self.load_game
+        end
+
     end
 
     def get_position
@@ -44,12 +55,15 @@ class Game
 
     def get_command
         puts "Type 'r' to reveal or 'f' to flag or unflagg:"
+        puts "Type 's' to save game or 'l' to load game:"
         print ">"
+        commands = ['r', 'f', 's', 'l']
         command = ''
-        until command == 'r' || command == 'f'
+
+        until commands.include?(command)
             command = gets.chomp
-            if command != 'r' && command != 'f'
-                puts "Invalid command. Make sure to type 'r' or 'f':"
+            if !commands.include?(command)
+                puts "Invalid command. Make sure to type 'r' or 'f' or 's' or 'l':"
                 print ">"
             end
         end
@@ -63,6 +77,28 @@ class Game
     def game_over?
         board.game_over
     end
+
+    def save_game
+        puts "Enter name for your save: "
+        print ">"
+        file_name = gets.chomp
+        whole_file_name = file_name + ".yml"
+        File.open(whole_file_name, "w") { |file| file.write(board.to_yaml) }
+        puts "Save sucessful!"
+    end
+
+    def load_game
+        puts "Enter name of your save: "
+        print ">"
+        file_name = gets.chomp
+        whole_file_name = file_name + ".yml"
+        new_board = YAML.load(File.read(whole_file_name))
+        self.board = new_board
+        puts "Load sucessful!"
+    end
+
+    private
+    attr_writer :board
 
 end
 
