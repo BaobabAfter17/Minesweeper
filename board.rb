@@ -92,6 +92,19 @@ class Board
         
     end
 
+    def win?
+        return false if game_over
+        board.all? do |row|
+            row.all? do |tile|
+                if tile.bombed
+                    !tile.revealed
+                else
+                    tile.revealed
+                end
+            end
+        end
+    end
+
     private
     attr_writer :board, :game_over
 
