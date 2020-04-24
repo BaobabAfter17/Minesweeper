@@ -2,6 +2,8 @@ require_relative 'board.rb'
 
 class Tile
     attr_reader :bombed
+    attr_accessor :revealed
+
 
     def initialize(board, position, bombed)
         @board = board # 9 * 9 full of tiles
@@ -14,10 +16,6 @@ class Tile
 
     def inspect
         "position: #{position}, bombed: #{bombed}, flagged: #{flagged}, revealed: #{revealed}"
-    end
-
-    def reveal
-        self.revealed = true
     end
 
     def neighbors
@@ -44,7 +42,6 @@ class Tile
     end
 
     private
-    attr_accessor :revealed
     attr_reader :board, :position, :flagged
 
 end

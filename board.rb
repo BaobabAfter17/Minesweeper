@@ -47,11 +47,15 @@ class Board
     end
 
     def render
-
+        # if unexplored / unrealved
+            # show * if not flagged
+            # show F if flagged
+        # if explored / revealed
+            # show _ if not neighbor to any bomb
+            # show num if neighor to any bomb(s)
     end
 
     private
-
     attr_writer :board
 
 end
