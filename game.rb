@@ -35,4 +35,18 @@ class Game
         position.all? {|index| index.between?(0, size - 1)}
     end
 
+    def get_command
+        puts "Type 'r' to reveal or 'f' to flag or unflagg:"
+        print ">"
+        command = ''
+        until command == 'r' || command == 'f'
+            command = gets.chomp
+            if command != 'r' && command != 'f'
+                puts "Invalid command. Make sure to type 'r' or 'f':"
+                print ">"
+            end
+        end
+        command
+    end
+
 end
