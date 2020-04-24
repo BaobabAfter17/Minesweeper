@@ -2,8 +2,7 @@ require_relative 'board.rb'
 require 'byebug'
 
 class Tile
-    attr_reader :board, :position, :bombed
-    attr_accessor :revealed, :flagged
+    attr_reader :board, :position, :bombed, :revealed, :flagged
 
 
     def initialize(board, position, bombed)
@@ -13,6 +12,18 @@ class Tile
 
         @flagged = false
         @revealed = false
+    end
+
+    def flagged=(new_flag)
+        if !revealed
+            flagged = new_flag
+        end
+    end
+
+    def revealed=(new_boolean)
+        if !flagged
+            revealed = new_boolean
+        end
     end
 
     def inspect
