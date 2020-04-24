@@ -12,7 +12,7 @@ class Tile
     end
 
     def inspect
-
+        "position: #{position}, bombed: #{bombed}, flagged: #{flagged}, revealed: #{revealed}"
     end
 
     def reveal
@@ -27,5 +27,7 @@ class Tile
 
     end
 
+    private
+    attr_reader :board, :position, :bombed, :flagged, :revealed
 
 end

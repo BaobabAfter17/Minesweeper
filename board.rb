@@ -8,13 +8,28 @@ class Board
         
     end
 
+    def fill_up_board_with_tiles
+        side = board.length
+        (0...side).each do |row|
+            (0...side).each do |col|
+                position = [row, col]
+                bombed = self[position]
+                new_tile = Tile.new(board, position, bombed)
+                self[position] = new_tile
+            end
+        end
+    end
+
     def count_mines
         board.flatten.count {|boolean| boolean}
     end
 
     def populate_mines
-        row = random(9)
-        col = random(9)
+        until self.count_mines >=10
+            row = random(9)
+            col = random(9)
+            board[[row, col]] = true
+        end
 
     end
 
