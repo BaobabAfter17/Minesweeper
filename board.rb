@@ -37,6 +37,10 @@ class Board
 
     end
 
+    def size
+        board.length
+    end
+
     def [](position)
         row, col = position
         board[row][col]
