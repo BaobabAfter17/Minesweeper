@@ -8,17 +8,18 @@ class Game
     end
 
     def run
+        play_round until self.win? || self.game_over?
+        puts "Congratulation! You WIN!" if self.win?
+        puts "Sorry, you lose.." if self.game_over?
 
     end
 
     def play_round
+        board.render
         command = get_command
         position = get_position
-        if command == 'r'
-            board.reveal(position)
-        else
-            board.
-
+        board.reveal(position) if command == 'r'
+        board.change_flag_at(position) if command == 'f'
     end
 
     def get_position
@@ -55,4 +56,17 @@ class Game
         command
     end
 
+    def win?
+        board.win?
+    end
+
+    def game_over?
+        board.game_over
+    end
+
+end
+
+if $PROGRAM_NAME == __FILE__
+    g = Game.new
+    g.run
 end
