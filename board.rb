@@ -47,12 +47,14 @@ class Board
     end
 
     def render
-        # if unexplored / unrealved
-            # show * if not flagged
-            # show F if flagged
-        # if explored / revealed
-            # show _ if not neighbor to any bomb
-            # show num if neighor to any bomb(s)
+        puts "  0 1 2 3 4 5 6 7 8"
+        board.each.with_index do |row, row_idx|
+            print row_idx.to_s + " "
+            row.each do |tile|
+                print tile.to_mark + " "
+            end
+            puts
+        end
     end
 
     private
@@ -62,12 +64,13 @@ end
 
 if $PROGRAM_NAME == __FILE__
     b = Board.new
-    b.board.each do |row|
-        row.each do |ele|
-            print "#{ele.bombed} "
-        end
-        puts
-    end
     t = b[[2,3]]
-    p t.neighbor_bomb_count
+    t.revealed = true
+    t2 = b[[3,1]]
+    t2.flagged = true
+    t.flagged = true
+
+    b.render
+
+    # p t.neighbor_bomb_count
 end
