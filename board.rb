@@ -1,13 +1,14 @@
 require_relative 'tile.rb'
 
 class Board
-    attr_reader :board
+    attr_reader :board, :game_over
     # default board size 9 * 9, with 10 random mines
 
     def initialize
         @board=Array.new(9) {Array.new(9, false)}
         self.populate_mines
         self.fill_up_board_with_tiles
+        @game_over = false
     end
 
     def fill_up_board_with_tiles
@@ -57,20 +58,51 @@ class Board
         end
     end
 
+    def reveal(position)
+        current_tile = self[position]
+
+        if current_tile.bombed
+            self.game_over = true
+        elsif current_tile.neighbor_bomb_count != 0
+            current_tile.revealed = true
+        else
+            current_tile.revealed = true
+            neighbors = current_tile.neighbors
+            neighbors.each do |neighbor|
+                if !neighbor.bombed && !neighbor.revealed
+                    self.reveal(neighbor.position)
+                end
+            end
+        end
+
+    end
+
+    def show_bombs
+        # cheat method for testing only
+        board.each do |row|
+            row.each do |tile|
+                if tile.bombed
+                    print "B "
+                else
+                    print "_ "
+                end
+            end
+            puts
+        end
+        
+    end
+
     private
-    attr_writer :board
+    attr_writer :board, :game_over
 
 end
 
 if $PROGRAM_NAME == __FILE__
     b = Board.new
-    t = b[[2,3]]
-    t.revealed = true
-    t2 = b[[3,1]]
-    t2.flagged = true
-    t.flagged = true
+    # b.show_bombs
+    # b.reveal([0,0])
+    # b.render
 
-    b.render
 
     # p t.neighbor_bomb_count
 end

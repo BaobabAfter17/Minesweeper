@@ -1,7 +1,8 @@
 require_relative 'board.rb'
+require 'byebug'
 
 class Tile
-    attr_reader :bombed
+    attr_reader :board, :position, :bombed
     attr_accessor :revealed, :flagged
 
 
@@ -33,7 +34,7 @@ class Tile
     
     def valid_position?(row, col)
         side = board.length
-        row.between?(0, side) && col.between?(0, side)
+        row.between?(0, side - 1) && col.between?(0, side - 1)
     end
 
     def neighbor_bomb_count
@@ -55,8 +56,5 @@ class Tile
         return '_' if revealed && neighbor_bomb_count == 0
         return neighbor_bomb_count.to_s if revealed && neighbor_bomb_count != 0
     end
-
-    private
-    attr_reader :board, :position
 
 end
